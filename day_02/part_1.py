@@ -1,5 +1,3 @@
-import sys
-
 def extractRGB(r):
     rgb = [0,0,0]
     cubes = r.split(',')
@@ -17,7 +15,8 @@ def extractRGB(r):
                 print('Error: Unknown color!')
     return rgb
 
-# change the filename below:
+# change the values below:
+limit_rgb = (12,13,14)
 with open('input.txt') as f:
     input = f.readlines()
     
@@ -28,17 +27,23 @@ for line in input:
     id = int(reveals[0].split(':')[0].split()[1])
 
     reveals[0] = reveals[0].split(':')[1]
-    min_rgb = [0,0,0]
+    max_rgb = [0,0,0]
     for r in reveals:
         rgb = extractRGB(r)
         for x in range (0,3):
-            if rgb[x] > 0 and rgb[x] > min_rgb[x]:
-                min_rgb[x] = rgb[x]
-    games.append([id, min_rgb])
+            if rgb[x] > max_rgb[x]:
+                max_rgb[x] = rgb[x]
     
-sum_power = 0
+    games.append([id, max_rgb])
+    
+sum_id = 0
 for g in games:
-    power = g[1][0]* g[1][1] * g[1][2]
-    sum_power += power
+    valid = True
+    for x in range (0,3):
+        if g[1][x] > limit_rgb[x]:
+            valid = False
+            break
+    if valid:
+        sum_id += g[0]
 
-print(sum_power)
+print(sum_id)
