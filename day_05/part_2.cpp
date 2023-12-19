@@ -32,34 +32,29 @@ vector<unsigned long long> extract_numbers (const string line) {
     return v;
 }
 
-unsigned long long read_seeds () {
+void read_seeds () {
     vector<unsigned long long> v = extract_numbers(lines.front());
     for (const unsigned long long& seed : v) {
         seeds.push_back(seed);
     }
-    
-    return seeds.size();
 }
 
-unsigned long long map_seeds () {
+void map_seeds () {
     if (seeds.size() == 0 || seeds.size() % 2 != 0) {
         cout << "Error while mapping seeds\n";
         cout << "seeds.size() = " << seeds.size() << "\n";
-        return -1;
+        return;
     }
     unsigned n = 0;
     for (list<unsigned long long>::iterator it=seeds.begin(); next(it) != seeds.end(); ++it, ++n) {
         if (n % 2 == 0) {
-            unsigned long long start = *it;
-            unsigned long long size = *(next(it));
-            vector<unsigned long long> v = {start, start + size};
+            vector<unsigned long long> v = {*it, *it + *(next(it))};
             seeds_map.push_back(v);
         }
     }
-    return 0;
 }
 
-unsigned long long map_steps () {
+void map_steps () {
     list<vector<unsigned long long>> map;
     for (const string& line : lines) {
         if (line.size() == 0) {
@@ -79,13 +74,12 @@ unsigned long long map_steps () {
     if (map.size() > 0) {
         maps.push_back(map);
     }
-    return 0;
 }
 
 int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while(getline(file,line)) {
@@ -100,7 +94,7 @@ int main() {
     map_steps();
     maps.reverse();
 
-    for (unsigned long long i = 0; i < 1'000'000'000; ++i) {
+    for (unsigned long long i = 0; i < 1000; ++i) {
         // the traveller t starts from its destination, given by i
         unsigned long long t = i;
         // for each map t checks where it'll have to go next
@@ -122,5 +116,6 @@ int main() {
             }
         }
     }
+    return 0;
 }
 
