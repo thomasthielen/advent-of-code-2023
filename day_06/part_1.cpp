@@ -15,12 +15,12 @@ vector<int> extract_numbers (const string line) {
         if (isdigit(c)) {
             num += c;
         } else if (num.size() > 0) {
-            v.push_back(stoull(num));
+            v.push_back(stoi(num));
             num = "";
         }
     }
     if (num.size() > 0) {
-        v.push_back(stoull(num));
+        v.push_back(stoi(num));
     }
     return v;
 }
