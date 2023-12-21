@@ -3,6 +3,7 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <chrono> 
 
 using namespace std;
 
@@ -21,6 +22,8 @@ unsigned long long extract_numbers (const string line) {
 }
 
 int main() {
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
     fstream file ("input.txt");
     string line;
     if (file.is_open()) {
@@ -35,8 +38,6 @@ int main() {
 
     // idea: the solution is symmetrical. start from the middle and go in one direction until
     // you do not beat the record anymore. then multiply by 2 and handle odd/even time.
-    cout << "T=" << time << " R=" << record << "\n";
-
     int sum = 0;
     for (unsigned long long t = time/2, s = time/2 ; t >= 0, s <= time; --t, ++s) {
         if (t * s <= record) {
@@ -50,4 +51,7 @@ int main() {
     }
 
     cout << sum << "\n";
+    
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+    cout << "Execution time (sec) = " <<  (chrono::duration_cast<chrono::microseconds>(end - begin).count()) /1000000.0  <<endl;
 }
