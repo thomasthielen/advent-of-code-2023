@@ -4,29 +4,12 @@
 #include <string>
 #include <vector>
 #include <tuple>
+#include <chrono>
 
 using namespace std;
 
-list<tuple<string,int>> hands;
+list<tuple<string,int,int>> hands;
 vector<char> cards {'A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'};
-
-void read_hand (const string& line) {
-    string hand;
-    int bid;
-    string input = "";
-    bool reading_bid = false;
-    for (const char& c : line) {
-        if (isspace(c)) {
-            hand = input;
-            reading_bid = true;
-            input = "";
-        } else {
-            input += c;
-        }
-    }
-    bid = stoi(input);
-    hands.push_back({hand,bid});
-}
 
 int joker_occ (const string& hand) {
     int occ = 0;
@@ -120,6 +103,24 @@ int check_strength(const string& hand) {
     return -1;
 }
 
+void read_hand (const string& line) {
+    string hand;
+    string input = "";
+    bool reading_bid = false;
+    for (const char& c : line) {
+        if (isspace(c)) {
+            hand = input;
+            reading_bid = true;
+            input = "";
+        } else {
+            input += c;
+        }
+    }
+    int bid = stoi(input);
+    int strength = check_strength(hand);
+    hands.push_back({hand,bid,strength});
+}
+
 int card_value(const char& card) {
     int value = 14;
     for (const char& c : cards) {
@@ -131,12 +132,11 @@ int card_value(const char& card) {
     return -1;
 }
 
-// TODO: Optimization: check_strength should only be called once and its value stores somewhere
-bool compare_hands(const tuple<string,int>& t1, const tuple<string,int>& t2) {
+bool compare_hands(const tuple<string,int,int>& t1, const tuple<string,int,int>& t2) {
     string h1 = get<0>(t1);
     string h2 = get<0>(t2);
-    int s1 = check_strength(h1);
-    int s2 = check_strength(h2);
+    int s1 = get<2>(t1);
+    int s2 = get<2>(t2);
     if (s1 == s2) {
         for (int i = 0; i < h1.size(); ++i) {
             if (h1[i] == h2[i]) {
@@ -149,6 +149,8 @@ bool compare_hands(const tuple<string,int>& t1, const tuple<string,int>& t2) {
 }
 
 int main() {
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+
     fstream file ("input.txt");
     string line;
     if (file.is_open()) {
@@ -161,10 +163,15 @@ int main() {
     int winnings = 0;
     // cout << "Sorted (weakest to strongest): \n";
     int rank = 1;
-    for (const tuple<string,int>& t : hands) {
+    for (const tuple<string,int,int>& t : hands) {
         // cout << rank << " " << get<0>(t) << "\n";
         winnings += rank * get<1>(t);
         ++rank;
     }
     cout << "total winnings = " << winnings << "\n";
+
+    // runtime before optimization: 11ms
+    // runtime now: 4ms
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+    cout << "Execution time (sec) = " <<  (chrono::duration_cast<chrono::microseconds>(end - begin).count()) /1000000.0  <<endl;
 }
