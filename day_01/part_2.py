@@ -1,5 +1,5 @@
 # running the code on 'test_2.txt' yields the correct sum of 281.
-with open('input.txt') as f:
+with open('test_2.txt') as f:
     input = f.readlines()
     
 # translate digits

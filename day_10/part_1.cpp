@@ -20,7 +20,7 @@ void print_coords() {
 }
 
 int main() {
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while (getline(file,line)) {

@@ -18,7 +18,7 @@ def extractRGB(r):
     return rgb
 
 # change the filename below:
-with open('input.txt') as f:
+with open('test.txt') as f:
     input = f.readlines()
     
 games = list()

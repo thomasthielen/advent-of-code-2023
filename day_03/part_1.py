@@ -1,4 +1,4 @@
-with open('input.txt') as f:
+with open('test.txt') as f:
     input = f.readlines()
 
 special_characters = '!@#$%^&*()-+?_=,<>/'

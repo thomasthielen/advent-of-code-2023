@@ -1,5 +1,5 @@
 # running the code on 'test_1.txt' yields the correct sum of 142.
-with open('input.txt') as f:
+with open('test_1.txt') as f:
     input = f.readlines()
     
 sum = 0

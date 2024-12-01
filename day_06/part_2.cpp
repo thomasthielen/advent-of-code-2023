@@ -24,7 +24,7 @@ unsigned long long extract_numbers (const string line) {
 int main() {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while(getline(file,line)) {

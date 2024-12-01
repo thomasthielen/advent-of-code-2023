@@ -33,7 +33,7 @@ bool cmp_nodes(const tuple<string,string,string>& n1, const tuple<string,string,
 }
 
 int main() {
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         getline(file,line);

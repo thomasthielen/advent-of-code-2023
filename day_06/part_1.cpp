@@ -26,7 +26,7 @@ vector<int> extract_numbers (const string line) {
 }
 
 int main() {
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while(getline(file,line)) {

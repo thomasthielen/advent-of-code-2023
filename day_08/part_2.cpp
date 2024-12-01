@@ -55,7 +55,7 @@ ull findlcm(vector<int> v) {
 }
 
 int main() {
-    fstream file ("input.txt");
+    fstream file ("test_2.txt");
     string line;
     if (file.is_open()) {
         getline(file,line);

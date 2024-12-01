@@ -50,7 +50,7 @@ bool check_diff_seq(vector<int> v) {
 int main() {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while (getline(file,line)) {

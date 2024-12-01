@@ -39,7 +39,7 @@ ll recursive_search(vector<int> v) {
 int main() {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     vector<vector<int>> histories;
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while (getline(file,line)) {

@@ -17,7 +17,7 @@ def extractRGB(r):
 
 # change the values below:
 limit_rgb = (12,13,14)
-with open('input.txt') as f:
+with open('test.txt') as f:
     input = f.readlines()
     
 games = list()

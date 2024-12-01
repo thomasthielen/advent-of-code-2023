@@ -94,7 +94,7 @@ bool compare_hands(const tuple<string,int>& t1, const tuple<string,int>& t2) {
 }
 
 int main() {
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while (getline(file,line)) {

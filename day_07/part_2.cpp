@@ -151,7 +151,7 @@ bool compare_hands(const tuple<string,int,int>& t1, const tuple<string,int,int>&
 int main() {
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
-    fstream file ("input.txt");
+    fstream file ("test.txt");
     string line;
     if (file.is_open()) {
         while (getline(file,line)) {
